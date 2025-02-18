@@ -20,7 +20,7 @@ namespace MovisisMauiApp.ViewModels
 
         #region OBSERVABLE PROPERTIES
         [ObservableProperty]
-        private ObservableCollection<Reminder> _reminders;
+        private ObservableCollection<Reminder> _reminders = new();
         [ObservableProperty]
         private DateTime _selectedDate = DateTime.Now;
         #endregion
@@ -45,6 +45,7 @@ namespace MovisisMauiApp.ViewModels
             try
             {
                 IsBusy = true;
+                Reminders.Clear();
 
                 await _service.InitializeAsync();
                 var items = await _service.GetAllAsync();

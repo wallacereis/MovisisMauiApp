@@ -1,6 +1,4 @@
-﻿global using System.Diagnostics;
-global using System.Threading.Tasks;
-global using System.Collections.ObjectModel;
+﻿global using System.Collections.ObjectModel;
 
 global using CommunityToolkit.Maui;
 global using CommunityToolkit.Maui.Alerts;
