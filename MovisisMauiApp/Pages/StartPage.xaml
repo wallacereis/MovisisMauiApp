@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovisisMauiApp.Pages.StartPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MovisisMauiApp.ViewModels"
+    x:DataType="vm:StartViewModel"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}">
+
+    <Grid Margin="20" RowDefinitions="Auto,*,Auto">
+
+        <Image
+            Grid.Row="0"
+            Aspect="AspectFit"
+            Source="onboarding"
+            VerticalOptions="Center" />
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Style="{DynamicResource LargeTitleLabelStyle}"
+                Text="Meus Lembretes"
+                TextColor="{DynamicResource Gray-Black}" />
+            <Label
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Style="{DynamicResource SubTitleLabelStyle}"
+                Text="Acompanhe seus compromissos"
+                TextColor="{DynamicResource Gray-Black}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2" Margin="20">
+            <Grid Margin="0,15,0,0">
+                <Button
+                    BackgroundColor="#96d032"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="20"
+                    FontSize="17"
+                    Text="Login com Senha">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding LoginCommand.IsRunning}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="Text" Value="" />
+                            <Setter Property="BackgroundColor" Value="Transparent" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding LoginCommand.IsRunning}"
+                    IsVisible="{Binding LoginCommand.IsRunning}"
+                    VerticalOptions="Center"
+                    Color="White" />
+            </Grid>
+
+            <Grid Margin="0,15,0,0" VerticalOptions="End">
+                <Button
+                    BackgroundColor="{StaticResource BackgroundColorLight}"
+                    Command="{Binding FingerPrintCommand}"
+                    CornerRadius="20"
+                    FontSize="17"
+                    Text="Login com Biometria"
+                    TextColor="{DynamicResource OffBlack}">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding FingerPrintCommand.IsRunning}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="Text" Value="" />
+                            <Setter Property="BackgroundColor" Value="Transparent" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding FingerPrintCommand.IsRunning}"
+                    IsVisible="{Binding FingerPrintCommand.IsRunning}"
+                    VerticalOptions="Center"
+                    Color="Navy" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

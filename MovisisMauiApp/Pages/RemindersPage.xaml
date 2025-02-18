@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovisisMauiApp.Pages.RemindersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:MovisisMauiApp.Controls.FontIcons"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:views="clr-namespace:MovisisMauiApp.Views"
+    xmlns:vm="clr-namespace:MovisisMauiApp.ViewModels"
+    Title="Lembretes"
+    x:DataType="vm:RemindersViewModel"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetAllRemindersCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!--  Main layout  -->
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!--  1. Schedule header  -->
+        <Border
+            Grid.Row="0"
+            BackgroundColor="White"
+            StrokeShape="RoundRectangle 0,0,25,25"
+            StrokeThickness="0">
+
+            <Grid
+                Padding="20,20,0,10"
+                ColumnDefinitions="Auto,*,Auto"
+                RowDefinitions="Auto,Auto">
+
+                <!--  Avatarview  -->
+                <toolkit:AvatarView
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    CornerRadius="30"
+                    HeightRequest="60"
+                    HorizontalOptions="Start"
+                    ImageSource="logo"
+                    Stroke="Transparent"
+                    VerticalOptions="Start"
+                    WidthRequest="60" />
+                <!--  Name & role  -->
+                <VerticalStackLayout
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="10,0">
+                    <Label
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LargeTitleLabelStyle}"
+                        Text="Movisis Tecnologia"
+                        TextColor="{DynamicResource OffBlack}" />
+                    <Label
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource DescriptionLabelStyle}"
+                        Text="Meus Lembretes"
+                        TextColor="{DynamicResource OffBlack}" />
+                </VerticalStackLayout>
+                <!--  Icon Filter  -->
+                <Image
+                    x:Name="imgFilter"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    Margin="0,10,20,20"
+                    Aspect="AspectFit"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                    Source="filter">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+
+                <!--  Filters  -->
+                <Border
+                    x:Name="borderFilter"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Margin="-10,10,7,-5"
+                    Padding="5,0,15,0"
+                    BackgroundColor="#00c2f5"
+                    IsVisible="{Binding IsNotBusy, Converter={StaticResource InvertedBoolConverter}}"
+                    StrokeLineCap="Round"
+                    StrokeShape="RoundRectangle 0,0,25,25"
+                    StrokeThickness="1">
+                    <VerticalStackLayout BackgroundColor="Transparent" VerticalOptions="Center">
+                        <SearchBar
+                            x:Name="searchTitle"
+                            FontSize="18"
+                            Placeholder="Filtrar por Títutlo"
+                            PlaceholderColor="Black"
+                            SearchCommand="{Binding GetAllRemindersCommand}"
+                            SearchCommandParameter="{Binding Source={x:Reference searchTitle}, Path=Text}"
+                            TextColor="Black" />
+                        <SearchBar
+                            x:Name="searchDescription"
+                            FontSize="18"
+                            Placeholder="Filtrar por Descrição"
+                            PlaceholderColor="Black"
+                            SearchCommand="{Binding GetAllRemindersCommand}"
+                            SearchCommandParameter="{Binding Source={x:Reference searchDescription}, Path=Text}"
+                            TextColor="Black" />
+
+                        <HorizontalStackLayout>
+                            <Label
+                                Padding="25,0,5,0"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="16"
+                                Text="{x:Static icons:FontAwesomeRegular.CalendarAlt}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <DatePicker
+                                Margin="5,0,0,0"
+                                Date="{Binding SelectedDate}"
+                                DateSelected="OnDateSelected"
+                                FontFamily="Roboto-Regular"
+                                FontSize="18"
+                                MaximumDate="12/01/2030"
+                                MinimumDate="01/01/2025"
+                                TextColor="Black"
+                                WidthRequest="317" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </Border>
+
+        <ActivityIndicator
+            Grid.Row="1"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="Navy" />
+
+        <!--  Shedule list structure  -->
+        <ScrollView Grid.Row="1">
+            <CollectionView
+                Margin="20,20"
+                IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                ItemsSource="{Binding Reminders}"
+                VerticalOptions="Start"
+                VerticalScrollBarVisibility="Never">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <views:ReminderTimelineView />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <Label
+            Grid.Row="2"
+            Margin="0,0,20,20"
+            FontFamily="FontAwesomeSolid"
+            FontSize="55"
+            HorizontalOptions="End"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+            Text="{x:Static icons:FontAwesomeSolid.PlusCircle}"
+            TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ReminderCreateCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+
+    </Grid>
+
+
+
+</ContentPage>

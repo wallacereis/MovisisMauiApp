@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovisisMauiApp.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MovisisMauiApp.Controls.UIControls"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:MovisisMauiApp.ViewModels"
+    x:DataType="vm:LoginViewModel"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}">
+
+    <ScrollView>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="Auto,*"
+            VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center">
+                <Image
+                    Margin="0,30,0,0"
+                    Aspect="AspectFit"
+                    HeightRequest="100"
+                    Source="logo"
+                    WidthRequest="80" />
+                <Label
+                    Margin="0,-15,0,10"
+                    FontSize="24"
+                    Style="{DynamicResource LargeTitleLabelStyle}"
+                    Text="Movisis Tecnologia" />
+            </VerticalStackLayout>
+
+            <Border
+                Grid.Row="1"
+                Margin="0,0,0,-40"
+                BackgroundColor="White"
+                HeightRequest="700"
+                Stroke="#96d032"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="1">
+                <Grid
+                    Padding="20,50,20,0"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                    RowSpacing="20"
+                    VerticalOptions="FillAndExpand">
+                    <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Meus Lembretes!"
+                        TextColor="#1C375C" />
+                    <Label
+                        Grid.Row="1"
+                        Margin="0,-15,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Por favor, informe suas credenciais"
+                        TextColor="#1C375C" />
+                    <controls:OutlinedEntryControl
+                        Grid.Row="2"
+                        Margin="0,20,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Login"
+                        Text="{Binding UserName}" />
+                    <controls:OutlinedEntryControl
+                        Grid.Row="3"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="True"
+                        Placeholder="Password"
+                        Text="{Binding UserPassword}"
+                        VerticalOptions="FillAndExpand" />
+
+                    <Grid Grid.Row="4" Margin="0,15,0,0">
+                        <Button
+                            BackgroundColor="#96d032"
+                            Command="{Binding LoginCommand}"
+                            CornerRadius="20"
+                            FontSize="17"
+                            Text="Login">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding LoginCommand.IsRunning}"
+                                    TargetType="Button"
+                                    Value="True">
+                                    <Setter Property="Text" Value="" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding LoginCommand.IsRunning}"
+                            IsVisible="{Binding LoginCommand.IsRunning}"
+                            VerticalOptions="Center"
+                            Color="White" />
+                    </Grid>
+
+                    <Label
+                        Grid.Row="5"
+                        Margin="0,-10"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{DynamicResource SimpleLabelStyle}"
+                        Text="or signin with"
+                        TextColor="{DynamicResource OffBlack}" />
+                    <HorizontalStackLayout
+                        Grid.Row="6"
+                        HorizontalOptions="CenterAndExpand"
+                        Spacing="40">
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="30"
+                            Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo626DNKJxdHM-VNRD0m7x_8Jim-r9kRalJQ"
+                            WidthRequest="30" />
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="30"
+                            Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnLfAn36-LTYNHjioWgvu-0KUTIDDrW5lX_g"
+                            WidthRequest="30" />
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="30"
+                            Source="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-icon-png-transparent-background-osteopathy-16.png"
+                            WidthRequest="30" />
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="30"
+                            Source="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+                            WidthRequest="30" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="MovisisMauiApp.Controls.UIControls.OutlinedEntryControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:handlers="clr-namespace:MovisisMauiApp.Controls.UIControls"
+    x:Name="this"
+    RowDefinitions="Auto">
+    <Frame
+        Grid.Row="0"
+        Padding="8,2,8,2"
+        BorderColor="Gray">
+        <handlers:BorderlessEntry
+            x:Name="txtEntry"
+            Focused="txtEntry_Focused"
+            FontSize="18"
+            Text="{Binding Source={x:Reference this}, Path=Text}"
+            TextColor="Black"
+            Unfocused="txtEntry_Unfocused" />
+    </Frame>
+
+    <Label
+        x:Name="lblPlaceholder"
+        Grid.Row="0"
+        Margin="10,0,10,0"
+        BackgroundColor="White"
+        FontSize="18"
+        HorizontalOptions="StartAndExpand"
+        Text="{Binding Source={x:Reference this}, Path=Placeholder}"
+        TextColor="Gray"
+        VerticalOptions="CenterAndExpand" />
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapped" />
+    </Grid.GestureRecognizers>
+</Grid>

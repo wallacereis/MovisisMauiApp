@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovisisMauiApp.Pages.ReminderDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:MovisisMauiApp.Controls.FontIcons"
+    xmlns:model="clr-namespace:MovisisMauiApp.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:MovisisMauiApp.ViewModels"
+    x:DataType="vm:ReminderDetailsViewModel"
+    BackgroundColor="{DynamicResource MainWrapperBackgroundColor}">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding LoadReminderCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            RowDefinitions="Auto,*,*"
+            VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center">
+                <Image
+                    Margin="0,30,0,0"
+                    Aspect="AspectFit"
+                    HeightRequest="100"
+                    Source="logo"
+                    WidthRequest="80" />
+                <Label
+                    Margin="0,-15,0,10"
+                    FontSize="24"
+                    Style="{DynamicResource LargeTitleLabelStyle}"
+                    Text="Movisis Tecnologia" />
+            </VerticalStackLayout>
+
+            <Border
+                Grid.Row="1"
+                Margin="0,10,0,0"
+                BackgroundColor="White"
+                Stroke="#96d032"
+                StrokeShape="RoundRectangle 40,40,0,0"
+                StrokeThickness="1">
+                <Grid
+                    Margin="20,0"
+                    Padding="20"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,Auto,Auto,Auto"
+                    VerticalOptions="FillAndExpand">
+
+                    <Label
+                        Grid.Row="0"
+                        Margin="0,20"
+                        Style="{DynamicResource LargeTitleLabelStyle}"
+                        Text="Lembrete Detalhes"
+                        TextColor="{DynamicResource OffBlack}" />
+
+                    <VerticalStackLayout
+                        Grid.Row="1"
+                        Margin="0"
+                        Padding="0">
+
+                        <Label
+                            Margin="0,5"
+                            Style="{DynamicResource SubTitleLabelStyle}"
+                            Text="Título:"
+                            TextColor="{DynamicResource OffBlack}" />
+                        <Grid
+                            Margin="0,0,0,10"
+                            ColumnDefinitions="Auto,*"
+                            VerticalOptions="Center">
+                            <Label
+                                Grid.Column="0"
+                                Margin="15,0,0,0"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static icons:FontAwesomeRegular.File}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                Margin="10,5"
+                                Style="{DynamicResource TitleLabelStyle}"
+                                Text="{Binding Reminder.Title}"
+                                TextColor="{DynamicResource OffBlack}" />
+                        </Grid>
+
+                        <Label
+                            Margin="0,5"
+                            Style="{DynamicResource SubTitleLabelStyle}"
+                            Text="Descrição:"
+                            TextColor="{DynamicResource OffBlack}" />
+                        <Grid
+                            Margin="0,0,0,10"
+                            ColumnDefinitions="Auto,*"
+                            VerticalOptions="Center">
+                            <Label
+                                Grid.Column="0"
+                                Margin="15,0,0,0"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static icons:FontAwesomeRegular.FileAlt}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                Margin="10,5"
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource TitleLabelStyle}"
+                                Text="{Binding Reminder.Description}"
+                                TextColor="{DynamicResource OffBlack}" />
+                        </Grid>
+
+                        <Label
+                            Margin="0,5"
+                            Style="{DynamicResource SubTitleLabelStyle}"
+                            Text="Vencimento em:"
+                            TextColor="{DynamicResource OffBlack}" />
+                        <Grid
+                            Margin="0,0,0,10"
+                            ColumnDefinitions="Auto,*"
+                            VerticalOptions="Center">
+                            <Label
+                                Grid.Column="0"
+                                Margin="15,0,0,0"
+                                FontFamily="FontAwesomeRegular"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{x:Static icons:FontAwesomeRegular.CalendarAlt}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                Margin="10,5"
+                                Style="{DynamicResource TitleLabelStyle}"
+                                Text="{Binding Reminder.ExpirationDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                TextColor="{DynamicResource OffBlack}" />
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
+                        <Label
+                            FontFamily="FontAwesomeSolid"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{x:Static icons:FontAwesomeSolid.Paperclip}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="10,5"
+                            Style="{DynamicResource SubTitleLabelStyle}"
+                            Text="Anexos"
+                            TextColor="{DynamicResource OffBlack}" />
+                    </HorizontalStackLayout>
+
+                    <Image
+                        x:Name="attachImage"
+                        Grid.Row="3"
+                        Aspect="AspectFit"
+                        HeightRequest="200"
+                        HorizontalOptions="Center"
+                        Source="{Binding Reminder.ReminderAttachments[0].AttachmentFileName}" />
+                </Grid>
+            </Border>
+
+            <HorizontalStackLayout
+                Grid.Row="2"
+                Margin="20,0"
+                HorizontalOptions="CenterAndExpand"
+                Spacing="10">
+                <Button
+                    BackgroundColor="#96d032"
+                    Command="{Binding ReminderUpdateCommand}"
+                    CornerRadius="20"
+                    FontAttributes="Bold"
+                    FontSize="15"
+                    HorizontalOptions="Start"
+                    Text="Editar Lembrete"
+                    VerticalOptions="Center"
+                    WidthRequest="170" />
+                <Button
+                    BackgroundColor="Red"
+                    Command="{Binding ReminderDeleteCommand}"
+                    CornerRadius="20"
+                    FontAttributes="Bold"
+                    FontSize="15"
+                    HorizontalOptions="End"
+                    Text="Remover Lembrete"
+                    VerticalOptions="Center"
+                    WidthRequest="170" />
+            </HorizontalStackLayout>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

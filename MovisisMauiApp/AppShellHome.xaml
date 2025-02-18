@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MovisisMauiApp.AppShellHome"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MovisisMauiApp.Pages"
+    Shell.BackgroundColor="{DynamicResource MainWrapperBackgroundColor}"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="Animated">
+
+    <ShellContent
+        Title="Reminders"
+        ContentTemplate="{DataTemplate pages:RemindersPage}"
+        Icon="ic_menu_light.png"
+        Route="RemindersPage" />
+
+    <ShellContent
+        Title="Details"
+        ContentTemplate="{DataTemplate pages:ReminderDetailsPage}"
+        Icon="ic_menu_light.png"
+        Route="DetailsReminderPage" />
+
+    <ShellContent
+        Title="Create"
+        ContentTemplate="{DataTemplate pages:ReminderCreatePage}"
+        Icon="ic_menu_light.png"
+        Route="ReminderCreatePage" />
+
+    <ShellContent
+        Title="Update"
+        ContentTemplate="{DataTemplate pages:ReminderUpdatePage}"
+        Icon="ic_menu_light.png"
+        Route="ReminderUpdatePage" />
+
+    <ShellContent
+        Title="Calendar"
+        ContentTemplate="{DataTemplate pages:RemindersCalendarPage}"
+        Icon="ic_menu_light.png"
+        Route="RemindersCalendarPage" />
+</Shell>
